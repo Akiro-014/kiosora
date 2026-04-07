@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - Siembre High School</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="login-page">
+        <!-- Left Side - Logo -->
+        <div class="left-section">
+            <div class="logo-container">
+                <div class="school-logo"></div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="right-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <a href="login-selection.html" class="back-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Back</span>
+                    </a>
+                    <div class="logo-small">
+                        <img src="../images/four.png" alt="Kiosora Logo" class="top-logo">
+                    </div>
+                </div>
+
+                <h1 class="form-title">Student Login</h1>
+
+                <form id="loginForm" class="form">
+                    <div class="form-group">
+                        <label class="form-label">Student Code</label>
+                        <input 
+                            type="text" 
+                            id="studentCode" 
+                            class="form-input" 
+                            placeholder="e.g. 07-001"
+                            required
+                        >
+                        <p class="form-help">Format: Grade-Year (e.g., 07-001 for Grade 7)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            class="form-input" 
+                            placeholder="Enter your password"
+                            required
+                        >
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showPassword">
+                            <span>Show Password</span>
+                        </label>
+                    </div>
+
+                    <div id="loginError" class="error-message"></div>
+
+                    <button type="submit" class="btn-submit">Login to Portal</button>
+                </form>
+
+                <div class="form-footer">
+                    <p class="footer-text">
+                        Don't have an account? 
+                        <a href="register.html" class="footer-link">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/touch-scroll.js"></script>
+    <script src="../js/virtual-keyboard.js"></script>
+    <script src="../js/script.js"></script>
+<script>
+    // Login Form Handler with Backend
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const studentCode = document.getElementById('studentCode').value;
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('loginError');
+        
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/student/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    studentCode: studentCode, 
+                    password: password 
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Save token and user data
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                window.location.href = 'dashboard.html';
+            } else {
+                errorDiv.textContent = data.error || 'Invalid student code or password';
+                errorDiv.style.display = 'block';
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            errorDiv.textContent = 'Connection error. Make sure the server is running.';
+            errorDiv.style.display = 'block';
+        }
+    });
+
+    // Show/Hide Password
+    document.getElementById('showPassword').addEventListener('change', function() {
+        const passwordInput = document.getElementById('password');
+        passwordInput.type = this.checked ? 'text' : 'password';
+    });
+</script>
+</body>
+</html>

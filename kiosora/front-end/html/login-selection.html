@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Siembre High School</title>
+    <meta name="google-signin-client_id" content="627075180466-khd3qvtttl7obop20fcv9vocq2ocujnq.apps.googleusercontent.com">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <link rel="stylesheet" href="../css/login-selection.css">
+</head>
+<body>
+    <div class="login-selection-page">
+        <!-- Background -->
+        <div class="background-overlay">
+            <div class="background-gradient"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="selection-content">
+            <!-- Header -->
+            <div class="header">
+                <a href="index.html" class="back-link">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="selection-container">
+                <div class="selection-header">
+                    <div class="logo-circle">
+                        <img src="../images/one.jpg" alt="School Logo" class="logo-img">
+                    </div>
+                    <h1 class="selection-title">Welcome Back</h1>
+                    <p class="selection-subtitle">Select your login type to continue</p>
+                </div>
+
+                <!-- Login Buttons -->
+                <div class="login-buttons">
+                    <!-- Admin Login Button -->
+                    <a href="#" class="login-button admin-button" id="adminLoginBtn">
+                        <div class="button-icon admin-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="button-content">
+                            <h2 class="button-title">Administrator</h2>
+                            <p class="button-description">Access admin dashboard and management tools</p>
+                        </div>
+                        <div class="button-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Student Login Button -->
+                    <a href="login.html" class="login-button student-button">
+                        <div class="button-icon student-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="button-content">
+                            <h2 class="button-title">Student</h2>
+                            <p class="button-description">Access your student portal and services</p>
+                        </div>
+                        <div class="button-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/touch-scroll.js"></script>
+    <script src="../js/virtual-keyboard.js"></script>
+    <script src="../js/login-selection.js"></script>
+    <script>
+        const GOOGLE_CLIENT_ID = '627075180466-khd3qvtttl7obop20fcv9vocq2ocujnq.apps.googleusercontent.com';
+
+        // Initialize Google Sign-In and trigger on admin button click
+        document.getElementById('adminLoginBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: handleGoogleSignIn,
+                ux_mode: 'popup'
+            });
+            google.accounts.id.prompt();
+        });
+
+        async function handleGoogleSignIn(response) {
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/admin/google-signin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ idToken: response.credential })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    // Store session for OTP verification and redirect
+                    localStorage.setItem('otpSessionId', data.sessionId);
+                    localStorage.setItem('otpEmail', data.email);
+                    window.location.href = 'admin-login.html';
+                } else {
+                    alert(data.error || 'Google sign-in failed. Access denied.');
+                }
+            } catch (err) {
+                console.error('Google sign-in error:', err);
+                alert('Connection error. Make sure the server is running.');
+            }
+        }
+    </script>
+</body>
+</html>

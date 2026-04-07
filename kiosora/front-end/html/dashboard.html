@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Siembre High School</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/dashboard-styles.css">
+</head>
+<body>
+    <!-- Dashboard Page -->
+    <div class="dashboard-page-new">
+        <!-- Header -->
+        <header class="dashboard-header-new">
+            <div class="header-container">
+                <div class="header-brand">
+                    <!-- Replace 'dashboard-logo.png' with your actual logo file name -->
+                    <img src="../images/two.png" alt="School Logo" class="dashboard-logo-img">
+                    <div>
+                        <h1 class="brand-title">SIEMBRE HIGH SCHOOL</h1>
+                        <p class="brand-subtitle">Siembre, Bombon, Camarines Sur</p>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn-logout-new">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main-new">
+            <!-- Profile Section -->
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <span class="active-badge">ACTIVE</span>
+                    </div>
+                    <div class="profile-info">
+                        <h2 class="profile-name" id="profileName">POGI</h2>
+                        <div class="profile-meta">
+                            <span class="profile-badge">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6">
+                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                </svg>
+                                <span id="profileCode">08-001</span>
+                            </span>
+                            <span class="profile-badge">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="#3b82f6">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                                </svg>
+                                <span id="profileGrade">Grade 8</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#3b82f6">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6" stroke="#3b82f6" stroke-width="2"/>
+                            <line x1="8" y1="2" x2="8" y2="6" stroke="#3b82f6" stroke-width="2"/>
+                        </svg>
+                        <div>
+                            <p class="detail-label">Birthday</p>
+                            <p class="detail-text" id="profileBirthday">March 9, 2011</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#3b82f6">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3" stroke="white" stroke-width="2"/>
+                        </svg>
+                        <div>
+                            <p class="detail-label">Address</p>
+                            <p class="detail-text" id="profileAddress">23</p>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#3b82f6">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6" stroke="white" stroke-width="2" fill="none"/>
+                        </svg>
+                        <div>
+                            <p class="detail-label">Email</p>
+                            <p class="detail-text" id="profileEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a9989b9ae9cec4c8c0c587cac6c4">[email&#160;protected]</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn-edit-profile" id="btnEditProfile">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        Edit Profile
+                    </button>
+                    <button class="btn-change-password" id="btnChangePassword">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                        Change Password
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Actions Section -->
+            <div class="quick-actions-section">
+                <div class="section-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                    <h3>Quick Actions</h3>
+                </div>
+                <p class="section-description">Access important school forms and documents</p>
+
+                <div class="quick-actions-grid">
+                    <div class="quick-action-card" id="evaluationFormBtn">
+                        <div class="qa-icon qa-icon-blue">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                            </svg>
+                        </div>
+                        <div class="qa-content">
+                            <h4>EVALUATION FORM</h4>
+                            <p>Submit academic evaluation forms</p>
+                        </div>
+                        <svg class="qa-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </div>
+
+                    <div class="quick-action-card" id="enrollmentFormBtn">
+                        <div class="qa-icon qa-icon-blue2">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+                            </svg>
+                        </div>
+                        <div class="qa-content">
+                            <h4>ENROLLMENT FORM</h4>
+                            <p>Complete enrollment for next semester</p>
+                        </div>
+                        <svg class="qa-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </div>
+
+                    <div class="quick-action-card" id="certificateFormBtn">
+                        <div class="qa-icon qa-icon-yellow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1 16l-4-4 1.41-1.41L11 15.17l6.59-6.59L19 10l-8 8z"/>
+                            </svg>
+                        </div>
+                        <div class="qa-content">
+                            <h4>CERTIFICATE OF ENROLLMENT</h4>
+                            <p>Generate enrollment certificate</p>
+                        </div>
+                        <svg class="qa-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Request Documents Section -->
+            <div class="request-docs-section">
+                <div class="section-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="12" y1="18" x2="12" y2="12"/>
+                        <line x1="9" y1="15" x2="15" y2="15"/>
+                    </svg>
+                    <h3>Request Documents</h3>
+                </div>
+                <p class="section-description">Request school documents that require admin processing</p>
+
+                <!-- Dropdown Request Selector -->
+                <div class="request-selector-container">
+                    <div class="request-selector-wrapper">
+                        <select id="docTypeSelect" class="request-doc-select">
+                            <option value="">-- Select a document to request --</option>
+                            <option value="form_137">📋 Form 137 — Permanent Record / Transcript</option>
+                            <option value="good_moral">🏅 Good Moral Certificate — Character reference</option>
+                            <option value="matriculation">🎓 Matriculation Form — Subject enrollment form</option>
+                        </select>
+                        <button class="request-select-btn" onclick="openRequestFromSelect()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                            Request
+                        </button>
+                    </div>
+                </div>
+
+                <!-- My Requests Status -->
+                <div class="my-requests-container">
+                    <div class="my-requests-header">
+                        <h4 class="my-requests-title">My Document Requests</h4>
+                        <div style="display:flex;gap:0.5rem;align-items:center;">
+                            <button class="btn-refresh-requests" id="btnRefreshRequests" onclick="refreshMyRequests()">
+                                <svg id="refreshIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="23 4 23 10 17 10"/>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                                </svg>
+                                Refresh
+                            </button>
+                            <button class="btn-clear-requests" id="btnClearRequests" onclick="clearCompletedRequests()" style="display:none;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"/>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                                </svg>
+                                Clear Completed
+                            </button>
+                        </div>
+                    </div>
+                    <div id="myRequestsList" class="my-requests-list">
+                        <p class="no-requests-text">No requests yet</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Recent Activity Section -->
+            <div class="recent-activity-section">
+                <div class="section-header">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                        <polyline points="17 6 23 6 23 12"/>
+                    </svg>
+                    <h3>Recent Activity</h3>
+                </div>
+
+                <div id="activityList" class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">Successfully logged in to your account</p>
+                            <p class="activity-time">Just now</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>Siembre High School Student Portal • Version 1.0 • 2026</p>
+            <p>© 2026 Siembre High School. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+        <div class="modal-content modal-medium">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button class="modal-close" onclick="closeModal('editProfileModal')">&times;</button>
+            </div>
+            <form id="editProfileForm" class="modal-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="editFullName" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Birthday</label>
+                    <input type="text" id="editBirthday" class="form-input" placeholder="MM/DD/YYYY" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="text" inputmode="email" id="editEmail" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" id="editAddress" class="form-input" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('editProfileModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="modal-close" onclick="closeModal('changePasswordModal')">&times;</button>
+            </div>
+            <form id="changePasswordForm" class="modal-form">
+                <div class="form-group">
+                    <label>Current Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="currentPassword" class="form-input" required>
+                        <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('currentPassword', this)" tabindex="-1"><svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off-icon" style="display:none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>New Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="newPassword" class="form-input" required>
+                        <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('newPassword', this)" tabindex="-1"><svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off-icon" style="display:none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="confirmPassword" class="form-input" required>
+                        <button type="button" class="eye-toggle" onclick="togglePasswordVisibility('confirmPassword', this)" tabindex="-1"><svg class="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off-icon" style="display:none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+                    </div>
+                </div>
+                <div id="passwordError" class="error-message"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModal('changePasswordModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Document Modals -->
+    <!-- Evaluation Form Modal -->
+    <div id="evaluationModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header modal-header-blue">
+                <div class="modal-title-group">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/>
+                    </svg>
+                    <h3>EVALUATION FORM</h3>
+                </div>
+                <button class="modal-close modal-close-white" onclick="closeModal('evaluationModal')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="success-alert">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Your evaluation form is ready. You can view or print it below.</span>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-section-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <h4>Student Information</h4>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label">Name:</span>
+                            <span class="info-value" id="evalName"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Student Code:</span>
+                            <span class="info-value" id="evalCode"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Grade Level:</span>
+                            <span class="info-value" id="evalGrade"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Date:</span>
+                            <span class="info-value" id="evalDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Viewer -->
+                <div class="pdf-viewer-container">
+                    <h4 style="margin-bottom:0.75rem; color:#1e293b; font-size:0.95rem;">
+                        📄 Evaluation Form Preview
+                    </h4>
+                    <div class="pdf-embed-container">
+                        <iframe
+                            id="evaluationPdfViewer"
+                            class="pdf-embed-viewer"
+                            src="../pdf/evaluation.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                            title="Siembre High School Evaluation Form"
+                            frameborder="0">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" id="openEvaluationPdfBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Open Full PDF
+                </button>
+                <button class="btn-primary" id="printEvaluationPdfBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 6 2 18 2 18 9"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Print Form
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enrollment Form Modal -->
+    <div id="enrollmentModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header modal-header-blue">
+                <div class="modal-title-group">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/>
+                    </svg>
+                    <h3>ENROLLMENT FORM</h3>
+                </div>
+                <button class="modal-close modal-close-white" onclick="closeModal('enrollmentModal')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="success-alert">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Your enrollment form is ready. You can view or print it below.</span>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-section-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <h4>Student Information</h4>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label">Name:</span>
+                            <span class="info-value" id="enrollName"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Student Code:</span>
+                            <span class="info-value" id="enrollCode"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Grade Level:</span>
+                            <span class="info-value" id="enrollGrade"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">School Year:</span>
+                            <span class="info-value">2025-2026</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Date:</span>
+                            <span class="info-value" id="enrollDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Viewer -->
+                <div class="pdf-viewer-container">
+                    <h4 style="margin-bottom:0.75rem; color:#1e293b; font-size:0.95rem;">
+                        📄 Enrollment Form Preview
+                    </h4>
+                    <div class="pdf-embed-container">
+                        <iframe
+                            id="enrollmentPdfViewer"
+                            class="pdf-embed-viewer"
+                            src="../pdf/enrollment.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                            title="Siembre High School Enrollment Form"
+                            frameborder="0">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" id="openEnrollmentPdfBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Open Full PDF
+                </button>
+                <button class="btn-primary" id="printEnrollmentPdfBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 6 2 18 2 18 9"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Print Form
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Modal -->
+    <div id="certificateModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header modal-header-blue">
+                <div class="modal-title-group">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/>
+                    </svg>
+                    <h3>CERTIFICATE OF ENROLLMENT</h3>
+                </div>
+                <button class="modal-close modal-close-white" onclick="closeModal('certificateModal')">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="success-alert">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>Your certificate is ready. You can view or print it below.</span>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-section-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        <h4>Student Information</h4>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label">Name:</span>
+                            <span class="info-value" id="certName"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Student Code:</span>
+                            <span class="info-value" id="certCode"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Grade Level:</span>
+                            <span class="info-value" id="certGrade"></span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Date Issued:</span>
+                            <span class="info-value" id="certDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF Viewer -->
+                <div class="pdf-viewer-container">
+                    <h4 style="margin-bottom:0.75rem; color:#1e293b; font-size:0.95rem;">
+                        📄 Certificate Preview
+                    </h4>
+                    <div class="pdf-embed-container">
+                        <iframe
+                            id="certificatePdfViewer"
+                            class="pdf-embed-viewer"
+                            src="../pdf/certificate.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                            title="Siembre High School Certificate of Enrollment"
+                            frameborder="0">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" id="openCertificatePdfBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Open Full PDF
+                </button>
+                <button class="btn-primary" id="printCertificatePdfBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 6 2 18 2 18 9"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Print Certificate
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Document Modal -->
+    <div id="requestDocModal" class="modal">
+        <div class="modal-content modal-small">
+            <div class="modal-header modal-header-blue">
+                <div class="modal-title-group">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <h3 id="requestModalTitle">Request Document</h3>
+                </div>
+                <button class="modal-close modal-close-white" onclick="closeRequestModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="request-doc-info">
+                    <div class="request-doc-icon-large" id="requestDocIconLarge"></div>
+                    <p class="request-doc-name" id="requestDocName"></p>
+                    <p class="request-doc-desc" id="requestDocDesc"></p>
+                </div>
+                <div class="form-group" style="margin-top:1rem;">
+                    <label style="font-weight:600; color:#374151;">Purpose / Notes (optional)</label>
+                    <textarea id="requestPurpose" class="form-input" rows="3" maxlength="60" placeholder="e.g. For scholarship application, transfer to another school..." oninput="updateCharCount()"></textarea>
+                    <p id="purposeCharCount" style="font-size:0.75rem;color:#9ca3af;text-align:right;margin:0.25rem 0 0;">0 / 60</p>
+                </div>
+                <div class="request-note">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                    </svg>
+                    <span>Your request will be reviewed by the admin. You will see the status in <strong>My Document Requests</strong>.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeRequestModal()">Cancel</button>
+                <button class="btn-primary" onclick="submitDocumentRequest()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"/>
+                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                    </svg>
+                    Submit Request
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/touch-scroll.js"></script>
+    <script src="../js/virtual-keyboard.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script>
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const eyeIcon    = btn.querySelector('.eye-icon');
+            const eyeOffIcon = btn.querySelector('.eye-off-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.style.display    = 'none';
+                eyeOffIcon.style.display = '';
+            } else {
+                input.type = 'password';
+                eyeIcon.style.display    = '';
+                eyeOffIcon.style.display = 'none';
+            }
+        }
+    </script>
+    <script>
+        function updateCharCount() {
+            const ta = document.getElementById('requestPurpose');
+            const counter = document.getElementById('purposeCharCount');
+            if (ta && counter) {
+                const len = ta.value.length;
+                counter.textContent = len + ' / 60';
+                counter.style.color = len >= 55 ? '#ef4444' : '#9ca3af';
+            }
+        }
+        // Reset counter when modal opens
+        const _origOpenRequestModal = window.openRequestModal;
+        if (typeof _origOpenRequestModal === 'function') {
+            window.openRequestModal = function(docType) {
+                _origOpenRequestModal(docType);
+                const counter = document.getElementById('purposeCharCount');
+                if (counter) { counter.textContent = '0 / 60'; counter.style.color = '#9ca3af'; }
+            };
+        }
+    </script>
+    <script>
+        async function refreshMyRequests() {
+            const btn = document.getElementById('btnRefreshRequests');
+            if (btn) btn.classList.add('spinning');
+            await loadMyDocumentRequests();
+            setTimeout(() => { if (btn) btn.classList.remove('spinning'); }, 600);
+        }
+        window.refreshMyRequests = refreshMyRequests;
+    </script>
+</body>
+</html>

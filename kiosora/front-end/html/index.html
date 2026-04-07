@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - Siembre High School</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/contact-styles.css">
+</head>
+<body>
+    <!-- Home Page -->
+    <div class="home-page">
+        <!-- Background Image -->
+        <div class="background-overlay">
+            <div class="background-image"></div>
+            <div class="overlay"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Navigation -->
+            <nav class="navbar">
+                <div class="nav-left">
+                    <!-- Replace 'logo.png' with your actual logo file name -->
+                    <img src="../images/one.jpg" alt="School Logo" class="school-logo-img" id="secretExitBtn">
+                    <span class="school-name">SIEMBRE HIGH SCHOOL</span>
+                </div>
+
+                <div class="nav-right">
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="#" class="nav-link" onclick="openContactPanel(event)">Contact Us</a>
+                    <a href="login-selection.html" class="btn-login">Login</a>
+                </div>
+            </nav>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">WELCOME</h1>
+                    <h2 class="hero-subtitle">Student Portal System</h2>
+                    <p class="hero-description">
+                        Provides students with easy and convenient access to request and print their needed forms anytime
+                    </p>
+                    <a href="overview.html" class="btn-get-started">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+
+    <!-- ===== CONTACT US PANEL ===== -->
+    <div id="contactOverlay" class="contact-overlay" onclick="closeContactPanel()"></div>
+
+    <div id="contactPanel" class="contact-panel">
+        <!-- Header -->
+        <div class="cp-header">
+            <div class="cp-header-top">
+                <div class="cp-logo">
+                    <img src="../images/two.png" alt="Logo">
+                    <span class="cp-logo-text">Siembre<br>High School</span>
+                </div>
+                <button class="cp-close" onclick="closeContactPanel()">&#x2715;</button>
+            </div>
+            <div class="cp-greeting">
+                Hello there!<br><span>How can we help?</span>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="cp-body">
+
+            <!-- Status -->
+            <div class="cp-status">
+                <div class="cp-status-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="cp-status-title">Portal is Online</div>
+                    <div class="cp-status-sub">All systems are running normally</div>
+                </div>
+            </div>
+
+            <!-- Reach us -->
+            <div class="cp-section-label">Reach Us</div>
+
+            <div class="cp-cards">
+                <a class="cp-card" href="tel:+639123456789">
+                    <div class="cp-card-icon navy">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <div class="cp-card-info">
+                        <span class="cp-card-label">Phone</span>
+                        <span class="cp-card-value">+63 912 345 6789</span>
+                    </div>
+                    <svg class="cp-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a class="cp-card" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#107;&#105;&#111;&#115;&#111;&#114;&#97;&#50;&#48;&#50;&#54;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">
+                    <div class="cp-card-icon blue">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <div class="cp-card-info">
+                        <span class="cp-card-label">Email</span>
+                        <span class="cp-card-value">siembrekiosk&#64;gmail&#46;com</span>
+                    </div>
+                    <svg class="cp-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a class="cp-card" href="https://www.google.com/maps/place/Siembre+High+School/@13.6765381,123.2562375,17z/data=!4m15!1m8!3m7!1s0x33a1ed8afead90a9:0xf023c16fb47a0996!2sM7G6%2BJGR+Sulpicio+A+Roco+Memorial+High+School+Annex,+Siembre+Rd,+Bombon,+4404+Camarines+Sur!3b1!8m2!3d13.6766164!4d123.2611624!16s%2Fg%2F11bvtcgq7_!3m5!1s0x33a1ed8aff35042f:0x694e137dba98bacd!8m2!3d13.676452!4d123.261062!16s%2Fg%2F11dx9g66d7?entry=ttu&g_ep=EgoyMDI2MDMxOC4xIKXMDSoASAFQAw%3D%3D" target="_blank">
+                    <div class="cp-card-icon green">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <div class="cp-card-info">
+                        <span class="cp-card-label">Address</span>
+                        <span class="cp-card-value" style="white-space: normal; word-break: break-word;">Siembre, Bombon, Camarines Sur</span>
+                    </div>
+                    <svg class="cp-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+
+                <a class="cp-card" href="https://facebook.com" target="_blank">
+                    <div class="cp-card-icon yellow">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </div>
+                    <div class="cp-card-info">
+                        <span class="cp-card-label">Facebook</span>
+                        <span class="cp-card-value">Siembre High School Official</span>
+                    </div>
+                    <svg class="cp-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+            </div>
+
+            <!-- Office Hours -->
+            <div class="cp-section-label">Office Hours</div>
+
+            <div class="cp-hours">
+                <div class="cp-hours-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="cp-hours-title">Monday – Friday</div>
+                    <div class="cp-hours-detail">8:00 AM – 5:00 PM<br>Closed on weekends &amp; holidays</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="cp-footer">
+            <p>© 2026 Siembre High School • Student Portal</p>
+        </div>
+    </div>
+
+    <script src="../js/contact.js"></script>
+    <script src="../js/touch-scroll.js"></script>
+    <script src="../js/virtual-keyboard.js"></script>
+
+</body>
+</html>

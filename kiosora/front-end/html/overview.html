@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overview - Kiosora Student Portal</title>
+    <link rel="stylesheet" href="../css/overview-styles.css">
+</head>
+<body>
+    <!-- Overview Page -->
+    <div class="overview-page">
+        <!-- Background with overlay -->
+        <div class="background-overlay">
+            <div class="background-image"></div>
+            <div class="overlay"></div>
+            <!-- Animated confetti -->
+            <div class="confetti-container" id="confettiContainer"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Top Section with Overview Title and Login Button -->
+            <div class="top-section">
+                <h1 class="overview-title">
+                    <span class="title-over">OVER</span><span class="title-view">VIEW</span>
+                </h1>
+                <a href="login-selection.html" class="btn-login-top">Login</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="overview-content">
+                <!-- Logo and Brand -->
+                <div class="brand-section">
+                    <div class="brand-logo">
+                        <img src="../images/three.png" alt="Kiosora Logo" class="logo-image">
+                    </div>
+                    <div class="ncf-badge">
+                        NCF - COLLEGE OF ENGINEERING
+                    </div>
+                    <h2 class="brand-name">KIOSORA</h2>
+                    <p class="brand-description">
+                        Provides students with easy and convenient access to request and print their needed forms anytime.
+                    </p>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="features-grid">
+                    <!-- Student Friendly -->
+                    <div class="feature-card">
+                        <div class="feature-icon student-friendly-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Student Friendly</h3>
+                        <p class="feature-description">
+                            Allows students to view, print, and securely access forms through their personal dashboard.
+                        </p>
+                    </div>
+
+                    <!-- Fast Registrations -->
+                    <div class="feature-card">
+                        <div class="feature-icon fast-registration-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                                <circle cx="19" cy="19" r="3" fill="#fbbf24"/>
+                                <path d="M19 17.5v2.25M19 19.75h1.5" stroke="white" stroke-width="0.5" fill="none"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Fast Registrations</h3>
+                        <p class="feature-description">
+                            Provides fast, convenient, secure self-service access for documents.
+                        </p>
+                    </div>
+
+                    <!-- Opportunity -->
+                    <div class="feature-card">
+                        <div class="feature-icon opportunity-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm6 9.09c0 4-2.55 7.7-6 8.83-3.45-1.13-6-4.82-6-8.83V6.31l6-2.12 6 2.12v4.78z"/>
+                                <path d="M9 12l-1.41 1.41L11 16.83 17.59 10.24 16.18 8.83 11 14z" fill="#fbbf24"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Opportunity</h3>
+                        <p class="feature-description">
+                            Applies educational technology and automation to school services to improve administrative efficiency
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Back to Home Button -->
+                <a href="index.html" class="btn-back-home" id="backHomeBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/overview.js"></script>
+    <script src="../js/touch-scroll.js"></script>
+    <script src="../js/virtual-keyboard.js"></script>
+</body>
+</html>

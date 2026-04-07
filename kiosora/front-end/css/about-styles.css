@@ -1,0 +1,637 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* About Page Container */
+.about-page {
+    min-height: 100vh;
+    position: relative;
+    overflow: auto;
+}
+
+/* Background image layer — same approach as overview */
+.about-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    /* ============================================ */
+    /* 👇 REPLACE THIS PATH WITH YOUR OWN IMAGE    */
+    /* Example: url('../images/my-background.jpg') */
+    /* ============================================ */
+    background-image: url('../images/five.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-color: #0a2a6e;
+    z-index: 0;
+}
+
+/* Dark overlay on top of the image */
+.about-page::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+/* All direct children sit above the overlay */
+.about-page > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Navbar Styles — matches dashboard header */
+.navbar {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    padding: 0.75rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: slideDown 0.5s ease;
+    width: 100%;
+}
+
+.about-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 2rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.back-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: rgba(74, 78, 87, 0.664);
+    color: white;
+    border: 1px solid rgba(26, 79, 196, 0.6);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-arrow:hover {
+    background: rgba(26, 79, 196, 1);
+    transform: translateY(-2px);
+}
+
+.school-logo-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.nav-brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.about-school-name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.about-school-sub {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.search-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.search-input {
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+    width: 250px;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: rgba(59, 130, 246, 0.8);
+    color: white;
+    border: 1px solid rgba(59, 130, 246, 0.5);
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: rgba(59, 130, 246, 1);
+    transform: translateY(-2px);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+}
+
+/* About Content */
+.about-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+/* Header Section */
+.about-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    animation: fadeInUp 0.8s ease;
+}
+
+.about-title {
+    font-size: 4rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+.about-description {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Office Image */
+.office-image-container {
+    margin: 4rem auto;
+    max-width: 950px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.8s ease 0.2s backwards;
+}
+
+.office-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.office-image-container:hover .office-image {
+    transform: scale(1.05);
+}
+
+/* Section Heading */
+.section-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mission Section */
+.mission-section {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 4rem auto;
+    max-width: 800px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.8s ease 0.3s backwards;
+}
+
+.mission-section .section-heading {
+    color: white;
+    text-shadow: none;
+    margin-bottom: 2rem;
+}
+
+.mission-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.mission-text {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    text-align: justify;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Team Section */
+.team-section {
+    margin: 4rem auto;
+    max-width: 1400px;
+}
+
+.team-intro {
+    text-align: center;
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+    align-items: stretch;
+}
+
+.team-member {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 1.4rem 1rem;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+    animation: fadeInUp 0.6s ease backwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.team-member:nth-child(1) { animation-delay: 0.1s; }
+.team-member:nth-child(2) { animation-delay: 0.2s; }
+.team-member:nth-child(3) { animation-delay: 0.3s; }
+.team-member:nth-child(4) { animation-delay: 0.4s; }
+.team-member:nth-child(5) { animation-delay: 0.5s; }
+
+.team-member:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.member-photo {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #1a4fc4;
+    box-shadow: 0 6px 16px rgba(26, 79, 196, 0.3);
+    flex-shrink: 0;
+}
+
+.member-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover .member-photo img {
+    transform: scale(1.1);
+}
+
+.member-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.3rem;
+}
+
+.member-role {
+    font-size: 0.75rem;
+    color: #60a5fa;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.member-bio {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.member-socials {
+    display: none;
+}
+
+/* FAQ Section */
+.faq-section {
+    max-width: 1000px;
+    margin: 4rem auto;
+}
+
+.faq-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: transparent;
+    border: none;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    color: #60a5fa;
+}
+
+.faq-icon {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    color: #60a5fa;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding: 0 2rem 1.5rem;
+}
+
+.faq-answer p {
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+/* Footer */
+.about-footer {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.about-footer p {
+    color: white;
+    font-size: 0.95rem;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #1a4fc4 0%, #0a2a6e 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 20px rgba(26, 79, 196, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 8px 30px rgba(26, 79, 196, 0.6);
+}
+
+.scroll-to-top:active {
+    transform: scale(0.95);
+}
+
+/* Search Highlight */
+.highlight {
+    background: #fbbf24;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-title {
+        font-size: 3rem;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 0;
+    }
+
+    .about-navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+
+    .nav-left {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .search-input {
+        width: 180px;
+    }
+
+    .about-title {
+        font-size: 2.5rem;
+    }
+
+    .about-description {
+        font-size: 1rem;
+    }
+
+    .section-heading {
+        font-size: 2rem;
+    }
+
+    .mission-section {
+        padding: 2rem;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-content {
+        padding: 2rem 1rem;
+    }
+
+    .about-title {
+        font-size: 2rem;
+    }
+
+    .about-school-name {
+        font-size: 0.9rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .search-btn {
+        width: 100%;
+    }
+
+    .section-heading {
+        font-size: 1.75rem;
+    }
+
+    .faq-question {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 0 1.5rem 1rem;
+    }
+}

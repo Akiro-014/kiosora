@@ -1,0 +1,122 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow: hidden;
+}
+
+/* Intro Screen */
+.intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(238, 240, 245, 0.95) 0%, rgba(213, 226, 252, 0.95) 50%, rgba(58, 75, 112, 0.95) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.intro-screen.fade-out {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+.intro-content {
+    text-align: center;
+    animation: fadeInZoom 1s ease-out;
+}
+
+.intro-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 0.1rem;
+    animation: logoAnimation 1.5s ease-in-out;
+    filter: drop-shadow(0 0 30px rgba(27, 55, 219, 0.5));
+}
+
+@keyframes logoAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) rotate(0deg);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1) rotate(180deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+.intro-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000e88;
+    letter-spacing: 8px;
+    text-shadow: 0 0 20px rgba(27, 55, 219, 0.5);
+    min-height: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intro-text span {
+    opacity: 0;
+    display: inline-block;
+    animation: fadeInLetter 0.2s ease-in forwards;
+}
+
+@keyframes fadeInLetter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInZoom {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .intro-logo {
+        width: 100px;
+    }
+
+    .intro-text {
+        font-size: 2rem;
+        letter-spacing: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-logo {
+        width: 80px;
+    }
+
+    .intro-text {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+    }
+}
