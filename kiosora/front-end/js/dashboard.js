@@ -1,3 +1,4 @@
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000" : "https://kiosora.onrender.com";
 // Dashboard JavaScript - Updated with iframe PDF Viewer
 
 let currentUser = null;
@@ -180,7 +181,7 @@ async function handleEditProfile(e) {
     const token = localStorage.getItem('token');
 
     try {
-        const res = await fetch('http://localhost:5000/api/student/update-profile', {
+        const res = await fetch(API_BASE + '/api/student/update-profile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -242,7 +243,7 @@ async function handleChangePassword(e) {
     const token = localStorage.getItem('token');
 
     try {
-        const res = await fetch('http://localhost:5000/api/student/change-password', {
+        const res = await fetch(API_BASE + '/api/student/change-password', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -406,7 +407,7 @@ function openRequestFromSelect() {
 async function clearCompletedRequests() {
     const token = localStorage.getItem('token');
     try {
-        const res = await fetch(`http://localhost:5000/api/student/requests/${currentUser.studentCode}`, {
+        const res = await fetch(`${API_BASE}/api/student/requests/${currentUser.studentCode}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const requests = await res.json();
@@ -415,7 +416,7 @@ async function clearCompletedRequests() {
             : [];
 
         await Promise.all(toDelete.map(r =>
-            fetch(`http://localhost:5000/api/student/requests/${r._id}`, {
+            fetch(`${API_BASE}/api/student/requests/${r._id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             })
@@ -465,7 +466,7 @@ async function submitDocumentRequest() {
     if (btn) { btn.disabled = true; btn.textContent = 'Submitting...'; }
 
     try {
-        const res = await fetch('http://localhost:5000/api/student/request-document', {
+        const res = await fetch(API_BASE + '/api/student/request-document', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -504,7 +505,7 @@ async function loadMyDocumentRequests() {
     const token = localStorage.getItem('token');
 
     try {
-        const res = await fetch(`http://localhost:5000/api/student/requests/${currentUser.studentCode}`, {
+        const res = await fetch(`${API_BASE}/api/student/requests/${currentUser.studentCode}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         const requests = await res.json();

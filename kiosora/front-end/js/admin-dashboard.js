@@ -1,3 +1,4 @@
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000" : "https://kiosora.onrender.com";
 // ============= TOAST NOTIFICATION =============
 function showToast(message, type = 'success') {
     const existing = document.getElementById('adminToast');
@@ -147,7 +148,7 @@ function switchTab(tabName) {
 // ============= LOAD STATISTICS =============
 async function loadStatistics() {
     try {
-        const response = await fetch('http://localhost:5000/api/admin/stats', {
+        const response = await fetch(API_BASE + '/api/admin/stats', {
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
         
@@ -170,7 +171,7 @@ async function loadStudentsTable() {
         const search = document.getElementById('searchStudents')?.value || '';
         const grade = document.getElementById('filterGrade')?.value || '';
         
-        let url = 'http://localhost:5000/api/admin/students';
+        let url = API_BASE + '/api/admin/students';
         const params = new URLSearchParams();
         if (search) params.append('search', search);
         // Send grade as-is (zero-padded e.g. "07") to match stored gradeLevel values
@@ -269,7 +270,7 @@ async function openEditStudentModal(studentCode) {
             return;
         }
         
-        const response = await fetch(`http://localhost:5000/api/admin/students/${studentCode}`, {
+        const response = await fetch(`${API_BASE}/api/admin/students/${studentCode}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         
@@ -341,11 +342,11 @@ async function handleSaveStudent(e) {
         let url, method;
         
         if (currentEditStudent) {
-            url = `http://localhost:5000/api/admin/students/${currentEditStudent.studentCode}`;
+            url = `${API_BASE}/api/admin/students/${currentEditStudent.studentCode}`;
             method = 'PUT';
             if (password) studentData.password = password;
         } else {
-            url = 'http://localhost:5000/api/admin/students';
+            url = API_BASE + '/api/admin/students';
             method = 'POST';
             if (!password) {
                 showToast('Password is required for new students', 'warning');
@@ -397,7 +398,7 @@ async function handleSaveStudent(e) {
 // ============= OPEN DELETE MODAL =============
 async function openDeleteModal(studentCode) {
     try {
-        const response = await fetch(`http://localhost:5000/api/admin/students?search=${studentCode}`, {
+        const response = await fetch(`${API_BASE}/api/admin/students?search=${studentCode}`, {
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
         
@@ -422,7 +423,7 @@ async function openDeleteModal(studentCode) {
 // ============= DELETE STUDENT =============
 async function deleteStudent(studentCode) {
     try {
-        const response = await fetch(`http://localhost:5000/api/admin/students/${studentCode}`, {
+        const response = await fetch(`${API_BASE}/api/admin/students/${studentCode}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
@@ -461,7 +462,7 @@ const DOC_LABELS_ADMIN = {
 
 async function loadDocumentRequests() {
     try {
-        let url = 'http://localhost:5000/api/admin/requests';
+        let url = API_BASE + '/api/admin/requests';
         if (currentFilter !== 'all') url += `?filter=${currentFilter}`;
 
         const response = await fetch(url, {
@@ -576,7 +577,7 @@ async function confirmUpdateRequest() {
     btn.textContent = 'Updating...';
 
     try {
-        const response = await fetch(`http://localhost:5000/api/admin/requests/${id}`, {
+        const response = await fetch(`${API_BASE}/api/admin/requests/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -606,7 +607,7 @@ async function confirmUpdateRequest() {
 // ============= LOAD ACTIVITY MONITOR =============
 async function loadActivityMonitor() {
     try {
-        const response = await fetch('http://localhost:5000/api/admin/activities', {
+        const response = await fetch(API_BASE + '/api/admin/activities', {
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
         
@@ -664,7 +665,7 @@ async function _doClearAllActivity() {
     const modal = document.getElementById('clearActivityModal');
     if (modal) modal.classList.remove('active');
     try {
-        const response = await fetch('http://localhost:5000/api/admin/activities', {
+        const response = await fetch(API_BASE + '/api/admin/activities', {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
@@ -796,7 +797,7 @@ async function submitResetPassword() {
     if (btn) { btn.disabled = true; btn.textContent = 'Changing...'; }
 
     try {
-        const res  = await fetch('http://localhost:5000/api/admin/students/' + _resetCode, {
+        const res  = await fetch(API_BASE + '/api/admin/students/' + _resetCode, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
             body: JSON.stringify({ password: newPw })

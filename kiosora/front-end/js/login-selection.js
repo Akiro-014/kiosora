@@ -1,3 +1,4 @@
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000" : "https://kiosora.onrender.com";
 // Login Selection Page JavaScript
 // Google OAuth Client ID
 const GOOGLE_CLIENT_ID = '50582739638-amppusg45ug5qfosk64jf7u5h3989pav.apps.googleusercontent.com';
@@ -172,7 +173,7 @@ async function handleGoogleCredentialResponse(response) {
     errorDiv.style.display = 'none';
 
     try {
-        const res = await fetch('http://localhost:5000/api/auth/admin/google-signin', {
+        const res = await fetch(API_BASE + '/api/auth/admin/google-signin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ idToken: response.credential })
@@ -221,7 +222,7 @@ async function handleAdminLogin(e) {
     errorDiv.style.display = 'none';
 
     try {
-        const response = await fetch('http://localhost:5000/api/auth/admin/login', {
+        const response = await fetch(API_BASE + '/api/auth/admin/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password })
@@ -312,7 +313,7 @@ async function handleOTPVerification() {
 
     setButtonLoading(verifyBtn, true);
     try {
-        const response = await fetch('http://localhost:5000/api/auth/admin/verify-otp', {
+        const response = await fetch(API_BASE + '/api/auth/admin/verify-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sessionId: tempAdminSession.sessionId, otp, email: tempAdminSession.email })
@@ -346,7 +347,7 @@ async function resendOTP() {
     resendBtn.textContent = 'Sending...';
 
     try {
-        const response = await fetch('http://localhost:5000/api/auth/admin/resend-otp', {
+        const response = await fetch(API_BASE + '/api/auth/admin/resend-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sessionId: tempAdminSession.sessionId, email: tempAdminSession.email })
