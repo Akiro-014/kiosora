@@ -165,7 +165,18 @@ function handleLogout() {
 // ============================================
 function openEditProfile() {
     document.getElementById('editFullName').value = currentUser.fullName;
-    document.getElementById('editBirthday').value = currentUser.birthday;
+    const rawBirthday = currentUser.birthday;
+    let formattedBirthday = rawBirthday;
+    if (rawBirthday) {
+        const d = new Date(rawBirthday);
+        if (!isNaN(d)) {
+            const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+            const dd = String(d.getUTCDate()).padStart(2, '0');
+            const yyyy = d.getUTCFullYear();
+            formattedBirthday = `${mm}/${dd}/${yyyy}`;
+        }
+    }
+    document.getElementById('editBirthday').value = formattedBirthday;
     document.getElementById('editEmail').value    = currentUser.email;
     document.getElementById('editAddress').value  = currentUser.address;
     openModal('editProfileModal');
