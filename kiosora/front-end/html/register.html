@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration - Siembre High School</title>
     <link rel="stylesheet" href="../css/styles.css">
+<script>
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000" : "https://kiosora.onrender.com";
+</script>
 </head>
 <body>
     <!-- Registration Page -->
@@ -168,7 +171,7 @@
         
         if (gradeLevel) {
             try {
-                const response = await fetch(`http://localhost:5000/api/auth/student/generate-code/${gradeLevel}`);
+                const response = await fetch(`${API_BASE}/api/auth/student/generate-code/${gradeLevel}`);
                 const data = await response.json();
                 previewCode.textContent = data.code;
                 preview.style.display = 'block';
@@ -200,7 +203,7 @@
         };
         
         try {
-            const response = await fetch('http://localhost:5000/api/auth/student/register', {
+            const response = await fetch(API_BASE + '/api/auth/student/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
