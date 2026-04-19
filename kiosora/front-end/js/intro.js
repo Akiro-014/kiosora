@@ -32,9 +32,9 @@ window.addEventListener('load', function() {
     setTimeout(function() {
         introScreen.classList.add('fade-out');
         
-        // Hide intro screen after fade out
+        // Redirect after fade out animation completes
         setTimeout(function() {
-            document.getElementById('introScreen').style.display = 'none';
-        }, 600);
+            window.location.href = 'index.html';
+        }, 100); // 800ms for fade out animation
     }, 3500);
 });
