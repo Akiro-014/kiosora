@@ -7,9 +7,6 @@
     <meta name="google-signin-client_id" content="627075180466-khd3qvtttl7obop20fcv9vocq2ocujnq.apps.googleusercontent.com">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="stylesheet" href="../css/login-selection.css">
-<script>
-const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000" : "https://kiosora.onrender.com";
-</script>
 </head>
 <body>
     <div class="login-selection-page">
@@ -104,7 +101,7 @@ const API_BASE = (window.location.hostname === "localhost" || window.location.ho
 
         async function handleGoogleSignIn(response) {
             try {
-                const res = await fetch(API_BASE + '/api/auth/admin/google-signin', {
+                const res = await fetch('https://kiosora.onrender.com/api/auth/admin/google-signin', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ idToken: response.credential })
