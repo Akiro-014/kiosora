@@ -206,6 +206,16 @@
                         <button class="btn-refresh-requests-admin" id="btnRefreshRequests" onclick="refreshDocumentRequests()" title="Refresh">
                             <svg id="adminRefreshIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                         </button>
+                        <select id="sortRequests" class="sort-dropdown">
+                            <option value="date_desc">Latest First</option>
+                            <option value="date_asc">Oldest First</option>
+                            <option value="name_asc">Name A–Z</option>
+                            <option value="name_desc">Name Z–A</option>
+                            <option value="status_completed">Completed First</option>
+                            <option value="status_pending">Pending First</option>
+                            <option value="status_ready">Ready First</option>
+                            <option value="status_processing">Processing First</option>
+                        </select>
                         <div class="filter-buttons">
                             <button class="filter-btn active" data-filter="all">All</button>
                             <button class="filter-btn" data-filter="form_137">Form 137</button>
@@ -214,6 +224,57 @@
                             <button class="filter-btn" data-filter="evaluation">Evaluation</button>
                             <button class="filter-btn" data-filter="enrollment">Enrollment</button>
                             <button class="filter-btn" data-filter="certificate">Certificate</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Request Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-card-purple">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Total Requests</p>
+                            <h3 class="stat-value" id="reqTotalRequests">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-blue">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Form 137</p>
+                            <h3 class="stat-value" id="reqForm137">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-green">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Good Moral</p>
+                            <h3 class="stat-value" id="reqGoodMoral">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card stat-card-orange">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6" stroke="white" stroke-width="2"/>
+                                <line x1="8" y1="2" x2="8" y2="6" stroke="white" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Matriculation</p>
+                            <h3 class="stat-value" id="reqMatriculation">0</h3>
                         </div>
                     </div>
                 </div>
@@ -255,14 +316,13 @@
                         <h2 class="admin-content-title">Activity Monitor</h2>
                         <p class="admin-content-subtitle">Real-time tracking of all system activities</p>
                     </div>
-                    <button class="btn-clear-activity" id="btnClearActivity">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Clear All Activities
-                    </button>
+                    <div class="activity-filter-btns">
+                        <button class="activity-filter-btn active" data-days="7">Last 7 Days</button>
+                        <button class="activity-filter-btn" data-days="15">Last 15 Days</button>
+                        <button class="activity-filter-btn" data-days="30">Last 30 Days</button>
+                    </div>
                 </div>
+                <p id="activityDateRange" style="font-size:0.85rem; color:#6b7280; margin-bottom:1rem; font-style:italic;"></p>
 
                 <div class="admin-card">
                     <div id="activityListAdmin" class="activity-list-admin">

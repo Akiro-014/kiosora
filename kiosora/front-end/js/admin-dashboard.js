@@ -77,12 +77,21 @@ function setupAdminEventListeners() {
         filterGrade.addEventListener('change', filterStudents);
     }
     
-    // Clear activity button
-    const clearBtn = document.getElementById('btnClearActivity');
-    if (clearBtn) {
-        clearBtn.addEventListener('click', clearAllActivity);
-    }
+    // Activity filter buttons
+    document.querySelectorAll('.activity-filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.activity-filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            loadActivityMonitor(parseInt(this.dataset.days));
+        });
+    });
     
+    // Sort dropdown
+    const sortSelect = document.getElementById('sortRequests');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', loadDocumentRequests);
+    }
+
     // Document filter buttons
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -160,6 +169,12 @@ async function loadStatistics() {
         document.getElementById('activeStudents').textContent = stats.activeToday || 0;
         document.getElementById('totalRequests').textContent = stats.totalRequests || 0;
         document.getElementById('monthlyRequests').textContent = stats.monthlyRequests || 0;
+
+        // Document Requests tab stats
+        document.getElementById('reqTotalRequests').textContent = stats.totalRequests || 0;
+        document.getElementById('reqForm137').textContent = stats.form137Count || 0;
+        document.getElementById('reqGoodMoral').textContent = stats.goodMoralCount || 0;
+        document.getElementById('reqMatriculation').textContent = stats.matriculationCount || 0;
     } catch (error) {
         console.error('Error loading stats:', error);
     }
@@ -469,6 +484,25 @@ async function loadDocumentRequests() {
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
         const requests = await response.json();
+
+        // Apply sort
+        const sortVal = document.getElementById('sortRequests')?.value || 'date_desc';
+        const statusOrder = { completed: 0, ready: 1, processing: 2, pending: 3, rejected: 4 };
+        const statusOrderPending = { pending: 0, processing: 1, ready: 2, completed: 3, rejected: 4 };
+        const statusOrderReady = { ready: 0, processing: 1, pending: 2, completed: 3, rejected: 4 };
+        const statusOrderProcessing = { processing: 0, ready: 1, pending: 2, completed: 3, rejected: 4 };
+
+        requests.sort((a, b) => {
+            if (sortVal === 'date_desc') return new Date(b.requestDate) - new Date(a.requestDate);
+            if (sortVal === 'date_asc')  return new Date(a.requestDate) - new Date(b.requestDate);
+            if (sortVal === 'name_asc')  return (a.studentName || '').localeCompare(b.studentName || '');
+            if (sortVal === 'name_desc') return (b.studentName || '').localeCompare(a.studentName || '');
+            if (sortVal === 'status_completed') return (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9);
+            if (sortVal === 'status_pending')   return (statusOrderPending[a.status] ?? 9) - (statusOrderPending[b.status] ?? 9);
+            if (sortVal === 'status_ready')     return (statusOrderReady[a.status] ?? 9) - (statusOrderReady[b.status] ?? 9);
+            if (sortVal === 'status_processing') return (statusOrderProcessing[a.status] ?? 9) - (statusOrderProcessing[b.status] ?? 9);
+            return 0;
+        });
         const tableBody = document.getElementById('requestsTableBody');
         if (!tableBody) return;
 
@@ -605,16 +639,43 @@ async function confirmUpdateRequest() {
 }
 
 // ============= LOAD ACTIVITY MONITOR =============
-async function loadActivityMonitor() {
+async function loadActivityMonitor(days = 7) {
     try {
         const response = await fetch(API_BASE + '/api/admin/activities', {
             headers: { 'Authorization': `Bearer ${adminToken}` }
         });
         
-        const activities = await response.json();
+        let activities = await response.json();
         const activityList = document.getElementById('activityListAdmin');
         
         if (!activityList) return;
+
+        const now = new Date();
+
+        // Auto-remove activities older than 30 days
+        activities = activities.filter(activity => {
+            const age = (now - new Date(activity.timestamp)) / (1000 * 60 * 60 * 24);
+            return age <= 30;
+        });
+
+        // Calculate date range
+        const toDate = new Date(now);
+        const fromDate = new Date(now);
+        fromDate.setDate(fromDate.getDate() - days);
+
+        // Filter by selected days range
+        activities = activities.filter(activity => {
+            const actDate = new Date(activity.timestamp);
+            return actDate >= fromDate && actDate <= toDate;
+        });
+
+        // Format date range label
+        const formatLabel = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        const rangeLabel = `${formatLabel(fromDate)} – ${formatLabel(toDate)}`;
+
+        // Show date range label
+        let rangeEl = document.getElementById('activityDateRange');
+        if (rangeEl) rangeEl.textContent = `Showing activities from: ${rangeLabel}`;
         
         if (activities.length === 0) {
             activityList.innerHTML = `

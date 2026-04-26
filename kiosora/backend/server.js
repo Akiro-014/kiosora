@@ -441,7 +441,10 @@ app.get('/api/admin/stats', authMiddleware, adminMiddleware, async (req, res) =>
         const totalRequests = await DocumentRequest.countDocuments();
         const thisMonth = new Date(); thisMonth.setDate(1); thisMonth.setHours(0, 0, 0, 0);
         const monthlyRequests = await DocumentRequest.countDocuments({ requestDate: { $gte: thisMonth } });
-        res.json({ totalStudents, activeToday: activeToday.length, totalRequests, monthlyRequests });
+        const form137Count = await DocumentRequest.countDocuments({ documentType: 'form_137' });
+        const goodMoralCount = await DocumentRequest.countDocuments({ documentType: 'good_moral' });
+        const matriculationCount = await DocumentRequest.countDocuments({ documentType: 'matriculation' });
+        res.json({ totalStudents, activeToday: activeToday.length, totalRequests, monthlyRequests, form137Count, goodMoralCount, matriculationCount });
     } catch (error) { res.status(500).json({ error: error.message }); }
 });
 
