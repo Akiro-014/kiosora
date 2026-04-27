@@ -229,12 +229,12 @@ async function loadStudentsTable() {
                 <td>${student.address || ''}</td>
                 <td>
                     <div class="table-actions">
-                        <button class="btn-action btn-edit" onclick="openEditStudentModal('${student.studentCode}')">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        <button class="btn-action btn-view" onclick="openViewProfileModal('${student.studentCode}')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
                             </svg>
-                            Edit
+                            View
                         </button>
                         <button class="btn-action btn-reset-pw" data-code="${student.studentCode}" data-name="${student.fullName}">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -273,6 +273,62 @@ function openAddStudentModal() {
     const pwg2 = document.getElementById('passwordGroup');
     if (pwg2) { pwg2.style.display = ''; document.getElementById('studentPassword').setAttribute('required',''); }
     openModal('studentModal');
+}
+
+// ============= OPEN VIEW PROFILE MODAL =============
+async function openViewProfileModal(studentCode) {
+    try {
+        const token = localStorage.getItem('adminToken');
+        if (!token) {
+            showToast('Session expired. Please login again.', 'warning');
+            window.location.href = 'login-selection.html';
+            return;
+        }
+
+        const response = await fetch(`${API_BASE}/api/admin/students/${studentCode}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                showToast('Authentication failed. Please login again.', 'error');
+                localStorage.removeItem('adminToken');
+                localStorage.removeItem('adminUser');
+                window.location.href = 'login-selection.html';
+                return;
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const student = await response.json();
+
+        document.getElementById('viewProfileName').textContent = student.fullName || '-';
+        document.getElementById('viewProfileCode').textContent = student.studentCode || '-';
+        document.getElementById('viewProfileGrade').textContent = student.gradeLevel ? 'Grade ' + student.gradeLevel : '-';
+        document.getElementById('viewProfileEmail').textContent = student.email || '-';
+        document.getElementById('viewProfileBirthday').textContent = formatDate(student.birthday);
+        document.getElementById('viewProfileAddress').textContent = student.address || '-';
+
+        // Store code for the Edit Profile button inside the modal
+        document.getElementById('viewProfileEditBtn').onclick = function() {
+            closeViewProfileModal();
+            openEditStudentModal(studentCode);
+        };
+
+        openModal('viewProfileModal');
+
+    } catch (error) {
+        console.error('Error loading student profile:', error);
+        showToast('Error loading student profile', 'error');
+    }
+}
+
+function closeViewProfileModal() {
+    const modal = document.getElementById('viewProfileModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
 }
 
 // ============= OPEN EDIT STUDENT MODAL =============
@@ -885,6 +941,8 @@ window.submitResetPassword     = submitResetPassword;
 document.addEventListener('DOMContentLoaded', initAdminDashboard);
 
 // Make functions globally available for onclick handlers
+window.openViewProfileModal    = openViewProfileModal;
+window.closeViewProfileModal   = closeViewProfileModal;
 window.openEditStudentModal    = openEditStudentModal;
 window.openDeleteModal         = openDeleteModal;
 window.closeStudentModal       = closeStudentModal;

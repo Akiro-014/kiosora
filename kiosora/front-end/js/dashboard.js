@@ -70,12 +70,7 @@ function setupPdfButtons() {
     const enrollViewer = document.getElementById('enrollmentPdfViewer');
     const certViewer   = document.getElementById('certificatePdfViewer');
 
-    // Evaluation
-    const openEvalBtn = document.getElementById('openEvaluationPdfBtn');
-    if (openEvalBtn) openEvalBtn.onclick = () => {
-        window.open(evalViewer ? evalViewer.src : '../pdf/evaluation.pdf', '_blank');
-        addActivity('Opened Evaluation Form in new tab', 'view');
-    };
+
     const printEvalBtn = document.getElementById('printEvaluationPdfBtn');
     if (printEvalBtn) printEvalBtn.onclick = () => {
         if (evalViewer && evalViewer.contentWindow) {
@@ -86,12 +81,7 @@ function setupPdfButtons() {
         } else { window.open('../pdf/evaluation.pdf', '_blank'); }
     };
 
-    // Enrollment
-    const openEnrollBtn = document.getElementById('openEnrollmentPdfBtn');
-    if (openEnrollBtn) openEnrollBtn.onclick = () => {
-        window.open(enrollViewer ? enrollViewer.src : '../pdf/enrollment.pdf', '_blank');
-        addActivity('Opened Enrollment Form in new tab', 'view');
-    };
+
     const printEnrollBtn = document.getElementById('printEnrollmentPdfBtn');
     if (printEnrollBtn) printEnrollBtn.onclick = () => {
         if (enrollViewer && enrollViewer.contentWindow) {
@@ -102,20 +92,18 @@ function setupPdfButtons() {
         } else { window.open('../pdf/enrollment.pdf', '_blank'); }
     };
 
-    // Certificate
-    const openCertBtn = document.getElementById('openCertificatePdfBtn');
-    if (openCertBtn) openCertBtn.onclick = () => {
-        window.open(certViewer ? certViewer.src : '../pdf/certificate.pdf', '_blank');
-        addActivity('Opened Certificate in new tab', 'view');
-    };
+
     const printCertBtn = document.getElementById('printCertificatePdfBtn');
     if (printCertBtn) printCertBtn.onclick = () => {
+        const certViewer = document.getElementById('certificatePdfViewer');
         if (certViewer && certViewer.contentWindow) {
             certViewer.contentWindow.focus();
             const onAfter = () => { addActivity('Printed Certificate of Enrollment', 'print'); window.removeEventListener('afterprint', onAfter); };
             window.addEventListener('afterprint', onAfter);
             certViewer.contentWindow.print();
-        } else { window.open('../pdf/certificate.pdf', '_blank'); }
+        } else {
+            window.open('../pdf/certificate.pdf', '_blank');
+        }
     };
 }
 
@@ -142,12 +130,102 @@ function openDocumentModal(type) {
         addActivity('Opened Enrollment Form', 'document');
 
     } else if (type === 'certificate') {
-        document.getElementById('certName').textContent  = currentUser.fullName.toUpperCase();
-        document.getElementById('certCode').textContent  = currentUser.studentCode;
-        document.getElementById('certGrade').textContent = `Grade ${currentUser.gradeLevel}`;
-        document.getElementById('certDate').textContent  = dateStr;
+        // Auto-fill the live generated certificate with student profile data
+        const now = new Date();
+        const dayNum    = now.getDate();
+        const monthName = now.toLocaleString('en-US', { month: 'long' });
+        const yearFull  = now.getFullYear();
+
+        // Ordinal suffix for day
+        const ordinal = (n) => {
+            const s = ['th','st','nd','rd'], v = n % 100;
+            return n + (s[(v-20)%10] || s[v] || s[0]);
+        };
+
+        // Academic year: e.g. 2025-2026
+        const academicYear = `${yearFull - 1}-${yearFull}`;
+
+        // Student number
+        const studentNum = currentUser.studentCode || '';
+
+        document.getElementById('certBodyName').textContent       = currentUser.fullName.toUpperCase();
+        document.getElementById('certBodyGrade').textContent      = currentUser.gradeLevel;
+        document.getElementById('certBodyYear').textContent       = academicYear;
+        document.getElementById('certBodyStudentNum').textContent  = studentNum;
+        document.getElementById('certBodyDay').textContent        = ordinal(dayNum);
+        document.getElementById('certBodyMonth').textContent      = monthName;
+        document.getElementById('certBodyYearIssued').textContent = yearFull;
+
         openModal('certificateModal');
-        addActivity('Opened Certificate of Enrollment', 'document');
+
+        // Write the certificate into the iframe so it displays full-page (like enrollment PDF viewer)
+        setTimeout(() => {
+            const certEl = document.getElementById('generatedCertificate');
+            const certViewer = document.getElementById('certificatePdfViewer');
+            if (certEl && certViewer) {
+                const iframeDoc = certViewer.contentDocument || certViewer.contentWindow.document;
+                const studentName = document.getElementById('certBodyName').textContent.trim();
+                const studentGrade = document.getElementById('certBodyGrade').textContent.trim();
+                const studentYear = document.getElementById('certBodyYear').textContent.trim();
+                const studentNum = document.getElementById('certBodyStudentNum').textContent.trim();
+                const certDay = document.getElementById('certBodyDay').textContent.trim();
+                const certMonth = document.getElementById('certBodyMonth').textContent.trim();
+                const certYearIssued = document.getElementById('certBodyYearIssued').textContent.trim();
+
+                iframeDoc.open();
+                iframeDoc.write(`<!DOCTYPE html><html><head>
+                    <style>
+                        * { margin:0; padding:0; box-sizing:border-box; }
+                        body { background:#fff; font-family:'Times New Roman',Times,serif; font-size:13px; line-height:1.7; color:#000; padding:72px 80px 80px; }
+                        @page { size: 8.5in 13in; margin: 0; }
+                        @media print { body { margin:0; padding:72px 80px 80px; } }
+                        .letterhead { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+                        .letterhead img { width:70px; height:70px; object-fit:contain; }
+                        .letterhead-text { text-align:center; flex:1; padding:0 12px; }
+                        .cert-title { text-align:center; font-size:16px; font-weight:bold; letter-spacing:1px; margin:28px 0; }
+                        p { margin-bottom:24px; text-align:justify; }
+                        .underline { border-bottom:1px solid #000; padding:0 2px; display:inline; font-weight:bold; }
+                        .underline-sm { border-bottom:1px solid #000; padding:0 2px; display:inline; }
+                        .underline-md { border-bottom:1px solid #000; padding:0 2px; display:inline; }
+                        .sig-line { border-bottom:1px solid #000; width:220px; margin-top:32px; margin-bottom:4px; }
+                    </style>
+                </head><body>
+                    <div class="letterhead">
+                        <img src="../images/two.png" alt="Siembre High School Logo" onerror="this.style.display='none'">
+                        <div class="letterhead-text">
+                            <div style="font-size:11px;">Republic of the Philippines</div>
+                            <div style="font-size:13px;font-weight:bold;">Department of Education</div>
+                            <div style="font-size:11px;">Region V – Bicol Region</div>
+                            <div style="font-size:11px;">Schools Division Office of Camarines Sur</div>
+                            <div style="font-size:11px;">Siembre High School</div>
+                            <div style="font-size:11px;">Brgy. Siembre , Bombon Camarines Sur</div>
+                        </div>
+                        <img src="../images/deped-logo.png" alt="DepEd Logo" onerror="this.style.display='none'">
+                    </div>
+                    <hr style="border:none;border-top:3px solid #000;margin:6px 0 2px;">
+                    <hr style="border:none;border-top:1px solid #000;margin:0 0 0;">
+
+                    <div class="cert-title">CERTIFICATE OF ENROLLMENT</div>
+
+                    <p>To Whom It May Concern:</p>
+
+                    <p>This is to certify that <span class="underline">${studentName}</span> is currently enrolled as Grade <span class="underline-sm">${studentGrade}</span> student at Siembre High School for this Academic Year <span class="underline-md">${studentYear}</span>.</p>
+
+                    <p>His/Her Student Number is <span class="underline-md">${studentNum}</span>.</p>
+
+                    <p>This certification is being issued upon the request of the learner for whatever legal purpose it may serve him/her best.</p>
+
+                    <p>Issued this <span class="underline-sm">${certDay}</span> day of <span class="underline-md">${certMonth}</span>, <em>${certYearIssued}</em> at Siembre High School, Siembre, Bombon, Camarines Sur.</p>
+
+                    <p style="margin-bottom:4px;">Noted by:</p>
+                    <div class="sig-line"></div>
+                    <div style="font-size:12px;">ADVISER</div>
+                </body></html>`);
+                iframeDoc.close();
+            }
+        }, 100);
+
+        addActivity('Generated Certificate of Enrollment', 'document');
     }
 }
 
@@ -185,7 +263,20 @@ function openEditProfile() {
 async function handleEditProfile(e) {
     e.preventDefault();
     currentUser.fullName = document.getElementById('editFullName').value;
-    currentUser.birthday = document.getElementById('editBirthday').value;
+
+    // Convert MM/DD/YYYY input back to YYYY-MM-DD so UTC parsing in formatDate stays correct
+    const rawBdInput = document.getElementById('editBirthday').value;
+    if (rawBdInput && rawBdInput.includes('/')) {
+        const parts = rawBdInput.split('/');
+        if (parts.length === 3) {
+            currentUser.birthday = `${parts[2]}-${parts[0].padStart(2,'0')}-${parts[1].padStart(2,'0')}`;
+        } else {
+            currentUser.birthday = rawBdInput;
+        }
+    } else {
+        currentUser.birthday = rawBdInput;
+    }
+
     currentUser.email    = document.getElementById('editEmail').value;
     currentUser.address  = document.getElementById('editAddress').value;
 
@@ -540,14 +631,14 @@ async function loadMyDocumentRequests() {
         const statusLabel = {
             pending:    '⏳ Pending',
             processing: '🔄 Processing',
-            available:  '✅ Available',
+            ready:      '✅ Ready for Pickup',
             completed:  '🎉 Completed',
             rejected:   '❌ Rejected'
         };
         const statusClass = {
             pending:    'req-status-pending',
             processing: 'req-status-processing',
-            available:  'req-status-available',
+            ready:      'req-status-ready for pickup',
             completed:  'req-status-completed',
             rejected:   'req-status-rejected'
         };

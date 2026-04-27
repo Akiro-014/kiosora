@@ -1268,3 +1268,93 @@
     font-weight: 700;
     margin-top: 0rem;
 }
+/* ============= VIEW PROFILE BUTTON ============= */
+.btn-view {
+    background: #dbeafe;
+    color: #1e40af;
+}
+.btn-view:hover {
+    background: #bfdbfe;
+    transform: translateY(-2px);
+}
+
+/* ============= VIEW PROFILE MODAL ============= */
+.view-profile-avatar {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    margin: 0.5rem auto 0.75rem;
+}
+
+.view-profile-fullname {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.4rem;
+}
+
+.view-profile-code-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+    color: #1e40af;
+    width: fit-content;
+    margin: 0 auto 1.25rem;
+}
+
+.view-profile-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+}
+
+.view-profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.view-profile-field:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.view-profile-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.view-profile-value {
+    font-size: 0.9rem;
+    color: #111827;
+    font-weight: 500;
+    word-break: break-word;
+}
+
+/* View Profile modal header — compact like Edit Student */
+#viewProfileModal .modal-header {
+    padding: 0.25rem 1rem !important;
+}
+#viewProfileModal .modal-header h3 {
+    font-size: 1rem !important;
+    font-weight: 700;
+    margin-top: 0rem;
+}

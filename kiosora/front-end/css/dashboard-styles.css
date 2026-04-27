@@ -909,6 +909,7 @@
     overflow: hidden;
     border: 1px solid #d1d5db;
     background: #fff;
+    line-height: 0;
 }
 
 .pdf-embed-viewer {
@@ -916,6 +917,7 @@
     height: 600px;
     display: block;
     border: none;
+    background: #fff;
 }
 
 /* Give modal form inputs side breathing room */
