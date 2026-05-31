@@ -1,0 +1,477 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Overview Page */
+.overview-page {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.background-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.background-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('../images/five.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-color: #667eea;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Confetti Animation */
+.confetti-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 3px;
+    height: 12px;
+    background: #fbbf24;
+    opacity: 0.8;
+    animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+    from {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Top Section with Overview Title and Login */
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1.5rem 3rem;
+    width: 100%;
+}
+
+/* Title - Now in Top Left */
+.overview-title {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 10px;
+    margin-bottom: 0.1rem;
+    line-height: 1.5;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.title-over {
+    color: white;
+}
+
+.title-view {
+    color: #fbbf24;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-login-top {
+    background: white;
+    color: #3b82f6;
+    padding: 0.625rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInDown 0.5s ease-out;
+}
+
+.btn-login-top:hover {
+    background: #f3f4f6;
+    transform: scale(1.05);
+}
+
+.btn-login-top:active {
+    transform: scale(0.95);
+}
+
+/* Overview Content */
+.overview-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem 3rem;
+    text-align: center;
+}
+
+/* Brand Section */
+.brand-section {
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.5s ease-out 0.1s backwards;
+}
+
+.brand-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    animation: zoomIn 0.6s ease-out 0.2s backwards;
+}
+
+.logo-image {
+    width: 120px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.5));
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.5));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.8));
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.ncf-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.5s ease-out 0.25s backwards;
+}
+
+.brand-name {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #fbbf24;
+    margin-bottom: 1rem;
+    letter-spacing: 16px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    animation: slideInFromRight 0.6s ease-out 0.3s backwards;
+}
+
+@keyframes slideInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.brand-description {
+    color: white;
+    font-size: 1.125rem;
+    max-width: 42rem;
+    margin: 0 auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.5s ease-out 0.4s backwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 800px;
+    width: 100%;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.5s ease-out 0.5s backwards;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    transition: all 0.3s ease;
+    animation: cardSlideIn 0.4s ease-out backwards;
+}
+
+.feature-card:nth-child(1) {
+    animation-delay: 0.6s;
+}
+
+.feature-card:nth-child(2) {
+    animation-delay: 0.7s;
+}
+
+.feature-card:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Feature Icons */
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.student-friendly-icon {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+}
+
+.fast-registration-icon {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+}
+
+.opportunity-icon {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.4);
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.feature-title {
+    color: white;
+    font-size: 1.375rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.feature-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Back to Home Section */
+.back-home-section {
+    margin-top: 2rem;
+    animation: fadeInUp 0.5s ease-out 0.9s backwards;
+}
+
+.btn-back-home {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    animation: fadeIn 0.5s ease-out 1s backwards;
+}
+
+.btn-back-home:hover {
+    opacity: 0.8;
+}
+
+.btn-back-home:active {
+    transform: scale(0.98);
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .overview-title {
+        font-size: 3rem;
+    }
+
+    .brand-name {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .top-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .overview-title {
+        font-size: 2.5rem;
+    }
+
+    .brand-name {
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+
+    .brand-description {
+        font-size: 1rem;
+    }
+
+    .top-section {
+        padding: 1rem 1.5rem;
+    }
+
+    .overview-content {
+        padding: 1rem 1.5rem 2rem;
+    }
+
+    .logo-image {
+        width: 80px;
+    }
+
+    .feature-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .feature-icon svg {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .overview-title {
+        font-size: 2rem;
+    }
+
+    .brand-name {
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+    }
+
+    .feature-title {
+        font-size: 1.125rem;
+    }
+
+    .feature-description {
+        font-size: 0.875rem;
+    }
+}

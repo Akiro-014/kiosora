@@ -1,0 +1,874 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif; /* Changed to Roboto */
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Home Page Styles */
+.home-page {
+    min-height: 100vh;
+    position: relative;
+    overflow: auto;
+}
+
+.background-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.background-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('../images/five.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-color: #667eea;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ============================================ */
+/* SCHOOL LOGO IMAGE - Replace 'logo.png' with your logo */
+/* ============================================ */
+.school-logo-img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    padding: 3px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo-small {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.school-name {
+    color: white;
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #e5e7eb;
+    transform: scale(1.05);
+}
+
+.btn-login {
+    background: white;
+    color: #3b82f6;
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-login:hover {
+    background: #f3f4f6;
+    transform: scale(1.05);
+}
+
+.btn-login:active {
+    transform: scale(0.95);
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    padding: 1rem;
+    text-align: center;
+}
+
+.hero-content {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hero Title */
+.hero-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 10px;
+    font-size: 6rem;
+    margin-bottom: 0.1rem;
+    line-height: 0.8;
+}
+
+/* Hero Subtitle */
+.hero-subtitle {
+    color: #fbbf24;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 3rem;
+}
+
+.hero-description {
+    color: white;
+    font-size: 1.125rem;
+    max-width: 42rem;
+    margin: 0 auto 2rem;
+}
+
+.btn-get-started {
+    background: #fbbf24;
+    color: black;
+    padding: 1rem 2.5rem;
+    border-radius: 9999px;
+    font-size: 1.125rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-get-started:hover {
+    background: #f59e0b;
+    transform: scale(1.1);
+}
+
+.btn-get-started:active {
+    transform: scale(0.95);
+}
+
+/* Login/Register Page Styles */
+.login-page {
+    display: flex;
+    min-height: 100vh;
+}
+
+.left-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url('../images/siem.png');
+
+    background-size: cover;
+    background-position: center;
+}
+
+.logo-container {
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.school-logo {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    /* You can replace this with an actual logo image */
+    background-image: url('../images/two.png');
+    background-size: contain;
+    background-position: center;
+}
+
+.right-section {
+    width: 50%;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 28rem;
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    color: #111827;
+    transform: translateX(-5px);
+}
+
+.logo-small {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-small img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.form-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.form {
+    margin-top: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 9999px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-help {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.25rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #4b5563;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.btn-submit {
+    width: 100%;
+    background: #3b82f6;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+}
+
+.btn-submit:hover {
+    background: #2563eb;
+    transform: scale(1.02);
+}
+
+.btn-submit:active {
+    transform: scale(0.98);
+}
+
+.form-footer {
+    margin-top: 2rem;
+    text-align: center;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+}
+
+.footer-text {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.footer-link {
+    color: #3b82f6;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+    transform: scale(1.05);
+}
+
+/* Code Preview */
+.code-preview {
+    background: #eff6ff;
+    border: 2px dashed #93c5fd;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    animation: scaleIn 0.3s ease-out;
+}
+
+.code-preview-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.25rem;
+}
+
+.code-preview-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+.code-preview-help {
+    font-size: 0.75rem;
+    color: #3b82f6;
+    margin-top: 0.25rem;
+}
+
+/* Success Container */
+.success-container {
+    width: 100%;
+    max-width: 28rem;
+    text-align: center;
+    animation: scaleIn 0.5s ease-out;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+
+.success-icon svg {
+    color: #16a34a;
+}
+
+.success-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.success-subtitle {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.student-code-card {
+    background: #eff6ff;
+    border: 2px solid #93c5fd;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.student-code-label {
+    font-size: 0.875rem;
+    color: #374151;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.student-code-value {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #3b82f6;
+    margin-bottom: 0.5rem;
+}
+
+.student-code-help {
+    font-size: 0.875rem;
+    color: #3b82f6;
+}
+
+.user-info-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.user-info-item {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+}
+
+.user-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.user-info-item strong {
+    color: #111827;
+}
+
+/* Dashboard Styles */
+.dashboard-page {
+    min-height: 100vh;
+    background: #f9fafb;
+}
+
+.dashboard-header {
+    background: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-circle-blue {
+    width: 48px;
+    height: 48px;
+    background: #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-circle-blue::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+}
+
+.school-name-dark {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #111827;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    text-align: right;
+}
+
+.user-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.user-code {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.btn-logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #fee2e2;
+    color: #dc2626;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-logout:hover {
+    background: #fecaca;
+    transform: scale(1.05);
+}
+
+.btn-logout:active {
+    transform: scale(0.95);
+}
+
+.dashboard-main {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.dashboard-content {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.dashboard-title {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+.user-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.user-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.user-avatar {
+    width: 64px;
+    height: 64px;
+    background: #dbeafe;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar svg {
+    color: #3b82f6;
+}
+
+.user-card-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #111827;
+}
+
+.user-card-grade {
+    color: #6b7280;
+}
+
+.user-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.detail-box {
+    background: #f9fafb;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.detail-code {
+    color: #3b82f6;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.action-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+.action-card:active {
+    transform: scale(0.98);
+}
+
+.action-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.action-icon-blue {
+    background: #dbeafe;
+}
+
+.action-icon-blue svg {
+    color: #3b82f6;
+}
+
+.action-icon-green {
+    background: #dcfce7;
+}
+
+.action-icon-green svg {
+    color: #16a34a;
+}
+
+.action-icon-purple {
+    background: #f3e8ff;
+}
+
+.action-icon-purple svg {
+    color: #9333ea;
+}
+
+.action-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+}
+
+.action-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.activity-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+.no-activity {
+    text-align: center;
+    padding: 2rem 0;
+    color: #6b7280;
+}
+
+.no-activity svg {
+    margin: 0 auto 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .login-page {
+        flex-direction: column;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+    }
+
+    .left-section {
+        min-height: 200px;
+    }
+
+    .school-logo {
+        width: 200px;
+        height: 200px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .user-details {
+        grid-template-columns: 1fr;
+    }
+
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-right {
+        gap: 1rem;
+    }
+}

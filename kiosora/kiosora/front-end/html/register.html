@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - Siembre High School</title>
+    <link rel="stylesheet" href="../css/styles.css">
+<script>
+const API_BASE = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000" : "https://kiosora.onrender.com";
+</script>
+</head>
+<body>
+    <!-- Registration Page -->
+    <div class="login-page">
+        <!-- Left Side - Logo -->
+        <div class="left-section">
+            <div class="logo-container">
+                <div class="school-logo"></div>
+            </div>
+        </div>
+
+        <!-- Right Side - Registration Form -->
+        <div class="right-section">
+            <div class="form-container" id="registrationContainer">
+                <div class="form-header">
+                    <a href="../html/login.html" class="back-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Back</span>
+                    </a>
+                    <div class="logo-small">
+                        <img src="../images/four.png" alt="Kiosora Logo" class="top-logo">
+                    </div>
+                </div>
+
+                <h1 class="form-title">Student Registration</h1>
+                <p class="form-subtitle">Create your account to access the portal</p>
+
+                <form id="registerForm" class="form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="fullName" 
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Birthday</label>
+                            <input 
+                                type="text" 
+                                id="birthday" 
+                                class="form-input" 
+                                placeholder="MM/DD/YYYY"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input 
+                                type="text" 
+                                inputmode="email"
+                                id="email" 
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address</label>
+                            <input 
+                                type="text" 
+                                id="address" 
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Grade Level</label>
+                            <select id="gradeLevel" class="form-input" required>
+                                <option value="">Select</option>
+                                <option value="07">Grade 7</option>
+                                <option value="08">Grade 8</option>
+                                <option value="09">Grade 9</option>
+                                <option value="10">Grade 10</option>
+                                <option value="11">Grade 11</option>
+                                <option value="12">Grade 12</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input 
+                                type="password" 
+                                id="regPassword" 
+                                class="form-input" 
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showRegPassword">
+                        <span>Show Password</span>
+                    </label>
+
+                    <!-- Student Code Preview -->
+                    <div id="codePreview" class="code-preview" style="display: none;">
+                        <p class="code-preview-label">Your Student Code:</p>
+                        <p class="code-preview-value" id="previewCode"></p>
+                        <p class="code-preview-help">Will be generated after registration</p>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Create Student Account</button>
+                </form>
+
+                <div class="form-footer">
+                    <p class="footer-text">
+                        Already have an account? 
+                        <a href="../html/login.html" class="footer-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Success Message (Hidden by default) -->
+            <div class="success-container" id="successContainer" style="display: none;">
+                <div class="success-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h2 class="success-title">Registration Complete!</h2>
+                <p class="success-subtitle">Your student account has been created successfully.</p>
+
+                <div class="student-code-card">
+                    <p class="student-code-label">Your Student Code:</p>
+                    <p class="student-code-value" id="generatedCode"></p>
+                    <p class="student-code-help">Will be used to log in to the portal</p>
+                </div>
+
+                <div class="user-info-card">
+                    <p class="user-info-item"><strong>Name:</strong> <span id="displayName"></span></p>
+                    <p class="user-info-item"><strong>Email:</strong> <span id="displayEmail"></span></p>
+                    <p class="user-info-item"><strong>Grade Level:</strong> <span id="displayGrade"></span></p>
+                </div>
+
+                <a href="../html/login.html" class="btn-submit">Go to Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/touch-scroll.js"></script>
+    <script src="../js/virtual-keyboard.js"></script>
+    <script src="../js/script.js"></script>
+
+<!-- Privacy Notice Modal -->
+<div id="privacyModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; display:none; align-items:center; justify-content:center;">
+    <div style="background:white; border-radius:12px; max-width:520px; width:90%; margin:auto; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+        <!-- Header -->
+        <div style="background:#1e3a5f; padding:1.5rem 2rem; display:flex; align-items:center; gap:0.75rem;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+                <p style="color:rgba(255,255,255,0.7); font-size:0.75rem; margin:0;">Privacy & Security</p>
+                <h2 style="color:white; font-size:1.25rem; font-weight:bold; margin:0;">Privacy Notice</h2>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:1.5rem 2rem;">
+            <p style="color:#6b7280; font-size:0.875rem; margin-bottom:1rem;">Please read and accept our privacy policy before proceeding.</p>
+
+            <!-- Scrollable content -->
+            <div style="height:200px; overflow-y:auto; border:1px solid #e5e7eb; border-radius:8px; padding:1rem; margin-bottom:1.25rem; display:flex; flex-direction:column; gap:1rem;">
+                <div style="display:flex; gap:0.75rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#3b82f6" style="flex-shrink:0; margin-top:2px;"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6z"/></svg>
+                    <div>
+                        <p style="font-weight:600; color:#111827; margin-bottom:0.25rem;">Data Collection</p>
+                        <p style="font-size:0.875rem; color:#6b7280;">We collect your student information such as name, birthday, email, address, grade level, and gender solely for managing your student portal account and school records.</p>
+                    </div>
+                </div>
+                <div style="display:flex; gap:0.75rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <div>
+                        <p style="font-weight:600; color:#111827; margin-bottom:0.25rem;">Data Protection</p>
+                        <p style="font-size:0.875rem; color:#6b7280;">Your personal information is encrypted and stored securely in our database. We implement security measures to protect your data from unauthorized access.</p>
+                    </div>
+                </div>
+                <div style="display:flex; gap:0.75rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <div>
+                        <p style="font-weight:600; color:#111827; margin-bottom:0.25rem;">Data Usage</p>
+                        <p style="font-size:0.875rem; color:#6b7280;">Your information is used exclusively for school portal services such as document requests and student record management. We do not share your data with third parties.</p>
+                    </div>
+                </div>
+                <div style="display:flex; gap:0.75rem;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <div>
+                        <p style="font-weight:600; color:#111827; margin-bottom:0.25rem;">Your Rights</p>
+                        <p style="font-size:0.875rem; color:#6b7280;">You have the right to access, update, or request deletion of your personal data. Contact the school administrator for any data-related concerns.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkbox -->
+            <label style="display:flex; align-items:flex-start; gap:0.75rem; cursor:pointer; margin-bottom:1.25rem;">
+                <input type="checkbox" id="privacyAgree" style="width:18px; height:18px; margin-top:2px; cursor:pointer; accent-color:#1e3a5f;">
+                <span style="font-size:0.875rem; color:#374151;">I have read and agree to the Privacy Policy and Terms of Service of Siembre High School Student Portal.</span>
+            </label>
+
+            <!-- Buttons -->
+            <button id="btnAcceptPrivacy" onclick="acceptPrivacy()" style="width:100%; background:#1e3a5f; color:white; padding:0.875rem; border:none; border-radius:8px; font-size:1rem; font-weight:600; cursor:pointer; margin-bottom:0.75rem; opacity:0.5; cursor:not-allowed;" disabled>
+                Accept & Proceed to Registration
+            </button>
+            <button onclick="closePrivacyModal()" style="width:100%; background:none; border:none; color:#6b7280; font-size:0.875rem; cursor:pointer; padding:0.5rem;">
+                ← Back to Home
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Show privacy modal on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        showPrivacyModal();
+    });
+
+    function showPrivacyModal() {
+        const modal = document.getElementById('privacyModal');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePrivacyModal() {
+        window.location.href = '../html/login.html';
+    }
+
+    function acceptPrivacy() {
+        const modal = document.getElementById('privacyModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+
+    // Enable/disable accept button based on checkbox
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkbox = document.getElementById('privacyAgree');
+        const btn = document.getElementById('btnAcceptPrivacy');
+        checkbox.addEventListener('change', function() {
+            btn.disabled = !this.checked;
+            btn.style.opacity = this.checked ? '1' : '0.5';
+            btn.style.cursor = this.checked ? 'pointer' : 'not-allowed';
+        });
+    });
+</script>
+<script>
+    // Generate Student Code Preview
+    document.getElementById('gradeLevel').addEventListener('change', async function() {
+        const gradeLevel = this.value;
+        const preview = document.getElementById('codePreview');
+        const previewCode = document.getElementById('previewCode');
+        
+        if (gradeLevel) {
+            try {
+                const response = await fetch(`${API_BASE}/api/auth/student/generate-code/${gradeLevel}`);
+                const data = await response.json();
+                previewCode.textContent = data.code;
+                preview.style.display = 'block';
+            } catch (error) {
+                console.error('Error generating code:', error);
+            }
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+
+    // Show/Hide Password
+    document.getElementById('showRegPassword').addEventListener('change', function() {
+        const passwordInput = document.getElementById('regPassword');
+        passwordInput.type = this.checked ? 'text' : 'password';
+    });
+
+    // Registration Form Handler
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            fullName: document.getElementById('fullName').value,
+            birthday: document.getElementById('birthday').value,
+            email: document.getElementById('email').value,
+            address: document.getElementById('address').value,
+            gradeLevel: document.getElementById('gradeLevel').value,
+            password: document.getElementById('regPassword').value
+        };
+        
+        try {
+            const response = await fetch(API_BASE + '/api/auth/student/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                // Show success message
+                document.getElementById('registrationContainer').style.display = 'none';
+                document.getElementById('successContainer').style.display = 'block';
+                
+                document.getElementById('generatedCode').textContent = data.studentCode;
+                document.getElementById('displayName').textContent = formData.fullName;
+                document.getElementById('displayEmail').textContent = formData.email;
+                document.getElementById('displayGrade').textContent = formData.gradeLevel;
+            } else {
+                alert(data.error || 'Registration failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Registration error:', error);
+            alert('Connection error. Make sure the server is running.');
+        }
+    });
+</script>
+</body>
+</html>
