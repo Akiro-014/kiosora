@@ -8,7 +8,35 @@ const Admin = require('./models/Admin');
 const DocumentRequest = require('./models/DocumentRequest');
 const Activity = require('./models/Activity');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+// ============= EMAIL (Resend) =============
+async function sendOTPEmail(email, otp) {
+    const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            from: 'Kiosora Admin <onboarding@resend.dev>',
+            to: [email],
+            subject: 'Your Admin Login OTP - Kiosora',
+            html: `
+                <div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto;padding:20px;">
+                    <h2 style="color:#7e22ce;">Kiosora Admin Login</h2>
+                    <p>Your OTP code is:</p>
+                    <div style="background:#f3f4f6;padding:20px;text-align:center;border-radius:8px;">
+                        <span style="font-size:2.5rem;font-weight:700;letter-spacing:0.5rem;color:#7e22ce;">${otp}</span>
+                    </div>
+                    <p style="color:#6b7280;margin-top:16px;">This code expires in 5 minutes. Do not share it.</p>
+                </div>
+            `
+        })
+    });
+    if (!response.ok) {
+        const err = await response.text();
+        throw new Error(`Resend error: ${err}`);
+    }
+}
 const { OAuth2Client } = require('google-auth-library');
 
 dotenv.config();
@@ -32,21 +60,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../front-end/html/login-selection.html'));
 });
 
-// ============= EMAIL TRANSPORTER =============
-const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    requireTLS: true,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
-
 // ============= OTP SESSION STORE =============
 const otpSessions = new Map();
 
@@ -55,25 +68,6 @@ function generateOTP() {
 }
 function generateSessionId() {
     return Math.random().toString(36).substring(2) + Date.now().toString(36);
-}
-async function sendOTPEmail(email, otp) {
-    await transporter.sendMail({
-        from: `"Kiosora Admin" <${process.env.EMAIL_USER}>`,
-        to: email,
-        subject: 'Your Admin Login OTP - Kiosora',
-        html: `
-            <div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:2rem;border:1px solid #e5e7eb;border-radius:12px;">
-                <h2 style="color:#9333ea;margin-bottom:0.5rem;">Admin Login Verification</h2>
-                <p style="color:#6b7280;">Your one-time password for Kiosora Admin access:</p>
-                <div style="background:#f5f3ff;border-radius:8px;padding:1.5rem;text-align:center;margin:1.5rem 0;">
-                    <span style="font-size:2.5rem;font-weight:700;letter-spacing:0.5rem;color:#7e22ce;">${otp}</span>
-                </div>
-                <p style="color:#6b7280;font-size:0.875rem;">This code expires in <strong>5 minutes</strong>. Do not share this with anyone.</p>
-                <hr style="border:none;border-top:1px solid #e5e7eb;margin:1.5rem 0;">
-                <p style="color:#9ca3af;font-size:0.75rem;">If you did not request this, please ignore this email.</p>
-            </div>
-        `
-    });
 }
 
 // ============= AUTH MIDDLEWARE =============
