@@ -41,17 +41,8 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// ============= OTP SESSION STORE (MongoDB) =============
-const mongoose = require('mongoose');
-const otpSessionSchema = new mongoose.Schema({
-    sessionId: { type: String, required: true, unique: true },
-    email:     { type: String, required: true },
-    adminId:   { type: mongoose.Schema.Types.ObjectId, required: true },
-    otp:       { type: String, required: true },
-    expiresAt: { type: Date, required: true }
-});
-otpSessionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
-const OtpSession = mongoose.models.OtpSession || mongoose.model('OtpSession', otpSessionSchema);
+// ============= OTP SESSION STORE =============
+const otpSessions = new Map();
 
 function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -135,7 +126,7 @@ app.post('/api/auth/admin/login', async (req, res) => {
 
         const otp = generateOTP();
         const sessionId = generateSessionId();
-        await OtpSession.create({ sessionId, email: admin.email, adminId: admin._id, otp, expiresAt: new Date(Date.now() + 5 * 60 * 1000) });
+        otpSessions.set(sessionId, { email: admin.email, adminId: admin._id, otp, expiresAt: Date.now() + 5 * 60 * 1000 });
         await sendOTPEmail(admin.email, otp);
 
         res.json({ success: true, sessionId, email: admin.email });
@@ -165,7 +156,7 @@ app.post('/api/auth/admin/google-signin', async (req, res) => {
 
         const otp = generateOTP();
         const sessionId = generateSessionId();
-        await OtpSession.create({ sessionId, email: admin.email, adminId: admin._id, otp, expiresAt: new Date(Date.now() + 5 * 60 * 1000) });
+        otpSessions.set(sessionId, { email: admin.email, adminId: admin._id, otp, expiresAt: Date.now() + 5 * 60 * 1000 });
         await sendOTPEmail(admin.email, otp);
 
         res.json({ success: true, sessionId, email: admin.email });
@@ -179,16 +170,16 @@ app.post('/api/auth/admin/google-signin', async (req, res) => {
 app.post('/api/auth/admin/verify-otp', async (req, res) => {
     try {
         const { sessionId, otp, email } = req.body;
-        const session = await OtpSession.findOne({ sessionId });
+        const session = otpSessions.get(sessionId);
         if (!session) return res.status(400).json({ error: 'Session expired. Please login again.' });
-        if (new Date() > session.expiresAt) {
-            await OtpSession.deleteOne({ sessionId });
+        if (Date.now() > session.expiresAt) {
+            otpSessions.delete(sessionId);
             return res.status(400).json({ error: 'OTP has expired. Please request a new code.' });
         }
         if (session.otp !== otp) return res.status(400).json({ error: 'Invalid OTP code.' });
         if (session.email !== email) return res.status(400).json({ error: 'Session mismatch.' });
 
-        await OtpSession.deleteOne({ sessionId });
+        otpSessions.delete(sessionId);
         const admin = await Admin.findById(session.adminId);
         const token = jwt.sign({ id: admin._id, username: admin.username, isAdmin: true }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE });
         const adminData = admin.toObject();
@@ -204,13 +195,13 @@ app.post('/api/auth/admin/verify-otp', async (req, res) => {
 app.post('/api/auth/admin/resend-otp', async (req, res) => {
     try {
         const { sessionId } = req.body;
-        const oldSession = await OtpSession.findOne({ sessionId });
+        const oldSession = otpSessions.get(sessionId);
         if (!oldSession) return res.status(400).json({ error: 'Session not found. Please login again.' });
 
-        await OtpSession.deleteOne({ sessionId });
+        otpSessions.delete(sessionId);
         const otp = generateOTP();
         const newSessionId = generateSessionId();
-        await OtpSession.create({ sessionId: newSessionId, email: oldSession.email, adminId: oldSession.adminId, otp, expiresAt: new Date(Date.now() + 5 * 60 * 1000) });
+        otpSessions.set(newSessionId, { email: oldSession.email, adminId: oldSession.adminId, otp, expiresAt: Date.now() + 5 * 60 * 1000 });
         await sendOTPEmail(oldSession.email, otp);
 
         res.json({ success: true, sessionId: newSessionId });
